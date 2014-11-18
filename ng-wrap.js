@@ -18,6 +18,8 @@ angular.module('ng-wrap', [])
         };
       });
     }
+    
+    this.wrapper = wrapper;
 
     return {
       $get: function () {

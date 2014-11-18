@@ -7,30 +7,46 @@ Use:
 
 Provides single module `ng-wrap` with `ngWrap` function `ngWrap(<global name>, leaveGlobal);`
 
-    // index.html
-    // include angular
-    // include lodash (for this example)
-    <script src="bower_components/ng-wrap/ng-wrap.js"></script>
-    <script>
-        // removes _ from global namespace, instead allow injecting it as dependency
-        angular.module('App', ['ng-wrap'])
-          .run(function (ngWrap) {
-            console.log('wrapping _');
-            ngWrap('_');
-            // no more window._
-            // _ can be injected into other methods now
-          })
-          .controller('AppController', function ($scope, _) {
-            console.log('AppController');
-            console.log('injected typeof _ is', typeof _);
-            console.log('window._ ?', typeof window._);
-          });
-    </script>
-    // output
-    wrapping _
-    AppController
-    injected typeof _ is function
-    window._ ? undefined
+```html
+// index.html
+// include angular
+// include lodash (for this example)
+<script src="bower_components/ng-wrap/ng-wrap.js"></script>
+<script>
+    // removes _ from global namespace, instead allow injecting it as dependency
+    angular.module('AppInRun', ['ng-wrap'])
+      .run(function (ngWrap) {
+        console.log('wrapping _');
+        ngWrap('_');
+        // no more window._
+        // _ can be injected into other methods now
+      })
+      .controller('AppController', function ($scope, _) {
+        console.log('AppController');
+        console.log('injected typeof _ is', typeof _);
+        console.log('window._ ?', typeof window._);
+      });
+    // you may also wrap your providers during the config stage of Angular's bootstrapping process
+    angular.module('AppInConfig', ['ng-wrap'])
+      .config(function (ngWrapProvider) {
+        console.log('wrapping _');
+        ngWrapProvider.wrapper('_');
+        // no more window._
+        // _ can be injected into other methods now
+      })
+      .controller('AppController', function ($scope, _) {
+        console.log('AppController');
+        console.log('injected typeof _ is', typeof _);
+        console.log('window._ ?', typeof window._);
+      });
+
+</script>
+// output
+wrapping _
+AppController
+injected typeof _ is function
+window._ ? undefined
+```
 
 This was inspired by Ben Nadel's [Creating And Extending A Lodash / Underscore Service In AngularJS][extend lodash].
 
