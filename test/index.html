@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ng-wrap</title>
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/lodash/dist/lodash.js"></script>
+  <script src="../ng-wrap.js"></script>
+</head>
+<body ng-app="App">
+  <h2>ng-wrap test page</h2>
+  <div ng-controller="AppController">
+    Hello {{ greeting }}
+  </div>
+  <script>
+    angular.module('App', ['ng-wrap'])
+      .run(function (ngWrap) {
+        console.log('wrapping _');
+        ngWrap('_');
+      })
+      .controller('AppController', function ($scope, _) {
+        console.log('AppController');
+        console.log('injected typeof _ is', typeof _);
+        console.log('window._ ?', typeof window._);
+        $scope.greeting = _.first(['World!', 'foo']);
+      });
+  </script>
+</body>
+</html>
