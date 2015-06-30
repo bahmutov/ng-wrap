@@ -19,9 +19,9 @@ angular.module('ng-wrap', [])
       });
     }
     
-    this.wrapper = wrapper;
-
     return {
+      wrap: wrapper,
+
       $get: function () {
         return wrapper;
       }

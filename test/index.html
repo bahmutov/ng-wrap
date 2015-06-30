@@ -5,6 +5,7 @@
   <title>ng-wrap</title>
   <script src="../bower_components/angular/angular.js"></script>
   <script src="../bower_components/lodash/dist/lodash.js"></script>
+  <script src="../bower_components/modernizr/modernizr.js"></script>
   <script src="../ng-wrap.js"></script>
 </head>
 <body ng-app="App">
@@ -18,10 +19,16 @@
         console.log('wrapping _');
         ngWrap('_');
       })
-      .controller('AppController', function ($scope, _) {
+      .config(function(ngWrapProvider) {
+          console.log('wrapping Modernizr');
+          ngWrapProvider.wrap('Modernizr');
+      })
+      .controller('AppController', function ($scope, _, Modernizr) {
         console.log('AppController');
         console.log('injected typeof _ is', typeof _);
         console.log('window._ ?', typeof window._);
+        console.log('injected typeof Modernizr is', typeof Modernizr);
+        console.log('window.Modernizr ?', typeof window.Modernizr);
         $scope.greeting = _.first(['World!', 'foo']);
       });
   </script>
