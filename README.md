@@ -30,7 +30,7 @@ Provides single module `ng-wrap` with `ngWrap` function `ngWrap(<global name>, l
     angular.module('AppInConfig', ['ng-wrap'])
       .config(function (ngWrapProvider) {
         console.log('wrapping _');
-        ngWrapProvider.wrapper('_');
+        ngWrapProvider.wrap('_');
         // no more window._
         // _ can be injected into other methods now
       })
